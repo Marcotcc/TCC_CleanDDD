@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TCC.ApplicationCore.Entity;
+using TCC.Infrasctructure.EntityConfig;
 
 namespace TCC.Infrasctructure.Data
 {
@@ -16,9 +17,10 @@ namespace TCC.Infrasctructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cliente>().ToTable("Cliente");
             modelBuilder.Entity<Veiculo>().ToTable("Veiculo");
             modelBuilder.Entity<EmailConfig>().ToTable("EmailConfig");
+
+            modelBuilder.ApplyConfiguration(new ClienteMap());
         }
     }
 }

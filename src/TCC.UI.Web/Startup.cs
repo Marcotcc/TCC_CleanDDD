@@ -5,7 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TCC.ApplicationCore.Interfaces.Repository;
+using TCC.ApplicationCore.Interfaces.Services;
+using TCC.ApplicationCore.Services;
 using TCC.Infrasctructure.Data;
+using TCC.Infrasctructure.Repository;
 
 namespace TCC.UI.Web
 {
@@ -31,6 +35,14 @@ namespace TCC.UI.Web
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IClienteService, ClienteService>();
+            services.AddTransient<IVeiculoService, VeiculoService>();
+            services.AddTransient<IEmailConfigService, EmailConfigService>();
+
+            services.AddTransient<IClienteRepository, ClienteRepository>();
+            services.AddTransient<IVeiculoRepository, VeiculoRepository>();
+            services.AddTransient<IEmailConfigRepository, EmailConfigRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
