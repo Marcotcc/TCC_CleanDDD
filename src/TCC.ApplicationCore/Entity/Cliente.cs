@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TCC.ApplicationCore.Entity
 {
@@ -17,6 +15,6 @@ namespace TCC.ApplicationCore.Entity
 
         public string Telefone { get; set;  }
 
-        //public List<Veiculo> Veiculos { get; set; }
+        public ICollection<Veiculo> Veiculos { get; set; }
     }
 }

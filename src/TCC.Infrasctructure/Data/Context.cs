@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TCC.ApplicationCore.Entity;
 
 namespace TCC.Infrasctructure.Data
@@ -14,10 +11,14 @@ namespace TCC.Infrasctructure.Data
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Veiculo> Veiculos { get; set; }
+        public DbSet<EmailConfig> EmaiilConfig { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>().ToTable("Cliente");
+            modelBuilder.Entity<Veiculo>().ToTable("Veiculo");
+            modelBuilder.Entity<EmailConfig>().ToTable("EmailConfig");
         }
     }
 }
