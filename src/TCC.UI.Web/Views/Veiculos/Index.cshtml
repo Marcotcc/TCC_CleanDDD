@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TCC.ApplicationCore.Entity.Veiculo>
+
+@{
+    ViewData["Title"] = "Veiculos";
+}
+
+<h1>Veiculos</h1>
+
+<p>
+    <a asp-action="Create">Criar novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Renavam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Placa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Renavam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.VeiculoId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.VeiculoId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.VeiculoId">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
