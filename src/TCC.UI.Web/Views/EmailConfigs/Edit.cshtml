@@ -1,0 +1,59 @@
+﻿@model TCC.ApplicationCore.Entity.EmailConfig
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>EmailConfig</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmailConfigId" />
+            <div class="form-group">
+                <label asp-for="CredentialUserName" class="control-label"></label>
+                <input asp-for="CredentialUserName" class="form-control" />
+                <span asp-validation-for="CredentialUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CredentialPassword" class="control-label"></label>
+                <input asp-for="CredentialPassword" class="form-control" />
+                <span asp-validation-for="CredentialPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" class="control-label"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <input asp-for="Body" class="form-control" />
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SmtpClient" class="control-label"></label>
+                <input asp-for="SmtpClient" class="form-control" />
+                <span asp-validation-for="SmtpClient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortSSL" class="control-label"></label>
+                <input asp-for="PortSSL" class="form-control" />
+                <span asp-validation-for="PortSSL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details">Back to Details</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

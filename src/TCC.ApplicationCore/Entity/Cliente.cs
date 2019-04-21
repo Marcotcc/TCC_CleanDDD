@@ -15,6 +15,8 @@ namespace TCC.ApplicationCore.Entity
 
         public string Telefone { get; set;  }
 
+        public string Email { get; set; }
+
         public ICollection<Veiculo> Veiculos { get; set; }
     }
 }
