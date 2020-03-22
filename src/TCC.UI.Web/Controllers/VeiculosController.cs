@@ -22,7 +22,7 @@ namespace TCC.UI.Web.Controllers
         // GET: Veiculos
         public async Task<IActionResult> Index()
         {
-            var context = _context.Veiculos.Include(v => v.Cliente);
+            var context = _context.Veiculos.Include(v => v.Proprietario);
             return View(await context.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace TCC.UI.Web.Controllers
             }
 
             var veiculo = await _context.Veiculos
-                .Include(v => v.Cliente)
+                .Include(v => v.Proprietario)
                 .FirstOrDefaultAsync(m => m.VeiculoId == id);
             if (veiculo == null)
             {
@@ -48,7 +48,7 @@ namespace TCC.UI.Web.Controllers
         // GET: Veiculos/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Nome");
+            ViewData["ProprietarioId"] = new SelectList(_context.Proprietarios, "ProprietarioId", "Nome");
             return View();
         }
 
@@ -57,15 +57,18 @@ namespace TCC.UI.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VeiculoId,Renavam,Placa,ClienteId")] Veiculo veiculo)
+        public async Task<IActionResult> Create([Bind("VeiculoId,Renavam,Placa,ProprietarioId")] Veiculo veiculo)
         {
+            if (_context.Veiculos.Any(x => x.Renavam.Equals(veiculo.Renavam)))
+                ModelState.AddModelError("", $"Renavam {veiculo.Renavam} já cadastrado");
+
             if (ModelState.IsValid)
             {
                 _context.Add(veiculo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId", veiculo.ClienteId);
+            ViewData["ProprietarioId"] = new SelectList(_context.Proprietarios, "ProprietarioId", "ProprietarioId", veiculo.ProprietarioId);
             return View(veiculo);
         }
 
@@ -82,7 +85,7 @@ namespace TCC.UI.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Nome", veiculo.ClienteId);
+            ViewData["ProprietarioId"] = new SelectList(_context.Proprietarios, "ProprietarioId", "Nome", veiculo.ProprietarioId);
             return View(veiculo);
         }
 
@@ -91,7 +94,7 @@ namespace TCC.UI.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VeiculoId,Renavam,Placa,ClienteId")] Veiculo veiculo)
+        public async Task<IActionResult> Edit(int id, [Bind("VeiculoId,Renavam,Placa,ProprietarioId")] Veiculo veiculo)
         {
             if (id != veiculo.VeiculoId)
             {
@@ -118,7 +121,7 @@ namespace TCC.UI.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId", veiculo.ClienteId);
+            ViewData["ProprietarioId"] = new SelectList(_context.Proprietarios, "ProprietarioId", "ProprietarioId", veiculo.ProprietarioId);
             return View(veiculo);
         }
 
@@ -131,7 +134,7 @@ namespace TCC.UI.Web.Controllers
             }
 
             var veiculo = await _context.Veiculos
-                .Include(v => v.Cliente)
+                .Include(v => v.Proprietario)
                 .FirstOrDefaultAsync(m => m.VeiculoId == id);
             if (veiculo == null)
             {

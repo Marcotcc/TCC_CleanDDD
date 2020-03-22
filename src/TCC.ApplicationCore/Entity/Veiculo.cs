@@ -13,8 +13,8 @@
 
         public string Placa { get; set; }
 
-        public int ClienteId { get; set; }
+        public int ProprietarioId { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public Proprietario Proprietario { get; set; }
     }
 }

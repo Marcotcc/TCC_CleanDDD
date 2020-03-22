@@ -4,9 +4,9 @@ using TCC.Infrasctructure.Data;
 
 namespace TCC.Infrasctructure.Repository
 {
-    public class VeiculoRepository : EFRepository<Veiculo>, IVeiculoRepository
+    public class ProprietarioRepository : EFRepository<Proprietario>, IProprietarioRepository
     {
-        public VeiculoRepository(Context dbContext) : base(dbContext)
+        public ProprietarioRepository(Context dbContext) : base(dbContext)
         {
 
         }

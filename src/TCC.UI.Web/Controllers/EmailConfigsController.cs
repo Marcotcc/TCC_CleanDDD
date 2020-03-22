@@ -16,29 +16,29 @@ namespace TCC.UI.Web.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
-            id = 1;
-
             var emailConfig = await _context.EmaiilConfig
-                .FirstOrDefaultAsync(m => m.EmailConfigId == id);
+                .FirstOrDefaultAsync();
 
             if (emailConfig == null)
             {
+                emailConfig = new EmailConfig();
                 _context.Add(emailConfig);
+                _context.SaveChanges();
             }
 
             return View(emailConfig);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit()
         {
-            id = 1;
-
-            var emailConfig = await _context.EmaiilConfig.FindAsync(id);
+            var emailConfig = await _context.EmaiilConfig.FirstOrDefaultAsync();
             if (emailConfig == null)
             {
+                emailConfig = new EmailConfig();
                 _context.Add(emailConfig);
+                _context.SaveChanges();
             }
             return View(emailConfig);
         }
@@ -47,8 +47,6 @@ namespace TCC.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("EmailConfigId,CredentialUserName,CredentialPassword,Subject,Body,SmtpClient,PortSSL")] EmailConfig emailConfig)
         {
-            id = 1;
-
             if (ModelState.IsValid)
             {
                 try

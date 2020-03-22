@@ -16,8 +16,4 @@
     <ProjectReference Include="..\TCC.ApplicationCore\TCC.ApplicationCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

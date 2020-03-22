@@ -2,7 +2,7 @@
 
 namespace TCC.ApplicationCore.Interfaces.Repository
 {
-    public interface IClienteRepository : IRepository<Cliente>
+    public interface IProprietarioRepository : IRepository<Proprietario>
     {
     }
 }

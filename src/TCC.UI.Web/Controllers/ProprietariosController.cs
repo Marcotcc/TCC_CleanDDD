@@ -10,22 +10,22 @@ using TCC.Infrasctructure.Data;
 
 namespace TCC.UI.Web.Controllers
 {
-    public class ClientesController : Controller
+    public class ProprietariosController : Controller
     {
         private readonly Context _context;
 
-        public ClientesController(Context context)
+        public ProprietariosController(Context context)
         {
             _context = context;
         }
 
-        // GET: Clientes
+        // GET: Proprietarios
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clientes.ToListAsync());
+            return View(await _context.Proprietarios.ToListAsync());
         }
 
-        // GET: Clientes/Details/5
+        // GET: Proprietarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,42 @@ namespace TCC.UI.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.ClienteId == id);
-            if (cliente == null)
+            var proprietario = await _context.Proprietarios
+                .FirstOrDefaultAsync(m => m.ProprietarioId == id);
+            if (proprietario == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(proprietario);
         }
 
-        // GET: Clientes/Create
+        // GET: Proprietarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clientes/Create
+        // POST: Proprietarios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClienteId,Nome,Telefone,Email")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("ProprietarioId,Nome,CpfCnpj,Telefone,Email")] Proprietario proprietario)
         {
+            if (_context.Proprietarios.Any(x => x.CpfCnpj.Equals(proprietario.CpfCnpj)))
+                ModelState.AddModelError("", $"CpfCnpj {proprietario.CpfCnpj} já cadastrado");
+
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(proprietario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(proprietario);
         }
 
-        // GET: Clientes/Edit/5
+        // GET: Proprietarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +76,22 @@ namespace TCC.UI.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var proprietario = await _context.Proprietarios.FindAsync(id);
+            if (proprietario == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            return View(proprietario);
         }
 
-        // POST: Clientes/Edit/5
+        // POST: Proprietarios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClienteId,Nome,Telefone,Email")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("ProprietarioId,Nome,CpfCnpj,Telefone,Email")] Proprietario roprietario)
         {
-            if (id != cliente.ClienteId)
+            if (id != roprietario.ProprietarioId)
             {
                 return NotFound();
             }
@@ -97,12 +100,12 @@ namespace TCC.UI.Web.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(roprietario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.ClienteId))
+                    if (!ProprietarioExists(roprietario.ProprietarioId))
                     {
                         return NotFound();
                     }
@@ -113,10 +116,10 @@ namespace TCC.UI.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(roprietario);
         }
 
-        // GET: Clientes/Delete/5
+        // GET: Proprietarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +127,30 @@ namespace TCC.UI.Web.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.ClienteId == id);
-            if (cliente == null)
+            var roprietario = await _context.Proprietarios
+                .FirstOrDefaultAsync(m => m.ProprietarioId == id);
+            if (roprietario == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(roprietario);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Proprietarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            _context.Clientes.Remove(cliente);
+            var proprietario = await _context.Proprietarios.FindAsync(id);
+            _context.Proprietarios.Remove(proprietario);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool ProprietarioExists(int id)
         {
-            return _context.Clientes.Any(e => e.ClienteId == id);
+            return _context.Proprietarios.Any(e => e.ProprietarioId == id);
         }
     }
 }
