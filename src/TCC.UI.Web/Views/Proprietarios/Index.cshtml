@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TCC.ApplicationCore.Entity.Cliente>
+﻿@model IEnumerable<TCC.ApplicationCore.Entity.Proprietario>
 
 @{
-    ViewData["Title"] = "Clientes";
+    ViewData["Title"] = "Proprietarios";
 }
 
-<h1>Clientes</h1>
+<h1>Proprietarios</h1>
 
 <p>
     <a asp-action="Create">Criar novo</a>
@@ -14,6 +14,9 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CpfCnpj)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Telefone)
@@ -31,15 +34,18 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.CpfCnpj)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Telefone)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ClienteId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.ClienteId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.ClienteId">Deletar</a>
+                <a asp-action="Edit" asp-route-id="@item.ProprietarioId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.ProprietarioId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProprietarioId">Deletar</a>
             </td>
         </tr>
 }

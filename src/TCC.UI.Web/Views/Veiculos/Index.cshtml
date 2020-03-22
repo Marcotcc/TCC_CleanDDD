@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Placa)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente)
+                @Html.DisplayNameFor(model => model.Proprietario)
             </th>
             <th></th>
         </tr>
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.Placa)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                @Html.DisplayFor(modelItem => item.Proprietario.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VeiculoId">Editar</a> |

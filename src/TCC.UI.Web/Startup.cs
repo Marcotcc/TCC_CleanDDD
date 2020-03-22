@@ -36,13 +36,15 @@ namespace TCC.UI.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddTransient<IClienteService, ClienteService>();
+            services.AddTransient<IProprietarioService, ProprietarioService>();
             services.AddTransient<IVeiculoService, VeiculoService>();
             services.AddTransient<IEmailConfigService, EmailConfigService>();
+            services.AddTransient<IDebitoService, DebitoService>();
 
-            services.AddTransient<IClienteRepository, ClienteRepository>();
+            services.AddTransient<IProprietarioRepository, ProprietarioRepository>();
             services.AddTransient<IVeiculoRepository, VeiculoRepository>();
             services.AddTransient<IEmailConfigRepository, EmailConfigRepository>();
+            services.AddTransient<IDebitoRepository, DebitoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
